@@ -1,7 +1,21 @@
-import type { NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
+
+const rows: GridRowsProp = [
+  { id: 1, col1: "Hello", col2: "World" },
+  { id: 2, col1: "XGrid", col2: "is Awesome" },
+  { id: 3, col1: "Material-UI", col2: "is Amazing" },
+];
+
+const columns: GridColDef[] = [
+  { field: "id", hide: true },
+  { field: "col1", headerName: "Column 1", width: 150 },
+  { field: "col2", headerName: "Column 2", width: 150 }
+];
+
 
 const Home: NextPage = () => {
   return (
@@ -13,43 +27,8 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <div style={{ height: 300, width: "100%" }}>
+          <DataGrid disableColumnMenu rows={rows} columns={columns} />
         </div>
       </main>
 
@@ -68,5 +47,13 @@ const Home: NextPage = () => {
     </div>
   )
 }
+
+export const getStaticProps: GetStaticProps = async ({}) => {
+  return {
+    props: {},
+  };
+};
+
+import React from "react";
 
 export default Home
